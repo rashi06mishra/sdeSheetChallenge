@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+void setZeros(vector<vector<int>> &matrix)
+{
+	// Write your code here.
+    vector <int> x;
+    vector <int> y;
+    int N = matrix.size();
+    int M = matrix[0].size();
+    for(int i=0;i<N;i++){
+        for(int j=0;j<M;j++){
+            if(matrix[i][j]==0){
+                x.push_back(i);
+                y.push_back(j);
+            }
+        }
+    }
+    for(int i=0;i<x.size();i++){
+        for(int j=0;j<M;j++){
+            matrix[x[i]][j]=0;
+        }
+    }
+    
+    for(int i=0;i<N;i++){
+        for(int j=0;j<y.size();j++){
+            matrix[i][y[j]]=0;
+        }
+    }
+    
+}
