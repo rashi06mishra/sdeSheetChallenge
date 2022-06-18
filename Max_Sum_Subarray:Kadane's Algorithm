@@ -1,0 +1,63 @@
+//BEST APPROACH -Kadane's algorithm 
+
+int maxSubArray(vector<int>& nums) {
+        int N = nums.size();
+        int sum =0, ans =0;
+        int t= INT_MIN;
+        for(int i=0;i<N;i++){
+            if(nums[i]>t){
+                t = nums[i];
+            }
+        }
+        if(t<=0){
+            return t;
+        }
+        else{
+            for(int i=0;i<N;i++){
+                if((sum+nums[i])>0){
+                    sum+=nums[i];
+                }
+                else{
+                    sum =0;
+                }
+                ans = max(sum,ans);
+            }
+        }
+        return ans;
+    }
+
+
+//O(N^3) solution 
+ form all possible subarrays, calculate sum of each subarray, find the max 
+ for(int i=1;i<sub.size();i++){ // sub.size - 1- n
+    for(start - end of the subarray){
+          for(start- end of the subarray for max){
+              sum;
+          }
+     }
+ }
+ 
+ 
+ 
+ // O(N^2) soultion 
+ 
+ for(startIndex-endIndex){
+    for(subarray_size(1-N)){
+        if(starIndex + subArrray_size >N){ break;}
+        sum += arr[startIndex + subarray_size - 1];
+        ans = max(ans,sum);
+     }
+ }
+ 
+ // O(N) solution - divide and conquer
+ 
+ for(){
+  max_sum of right sub array;
+ }
+ for(){
+  max_sum_of_left_subbarray;
+}
+ans = max(left_MSS, right_MSS);
+
+return max(ans, leftsum+rightsum);
+}
