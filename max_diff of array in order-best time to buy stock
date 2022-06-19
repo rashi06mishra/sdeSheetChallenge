@@ -1,0 +1,33 @@
+//O(n) solution
+
+int maxProfit(vector<int>& prices) {
+        int max_diff =0;
+        int n = prices.size();
+        int min_price = INT_MAX;
+        for(int i=0;i<n;i++){
+          min_price = min(min_price,prices[i];
+          max_diff = max(max_diff , prices[i]-min_price);
+          }
+        return max_diff;
+    }
+
+// O(n^2) solution - my approach tle
+int maxProfit(vector<int>& prices) {
+        int max_diff =0;
+        int n = prices.size();
+        for(int i=0;i<n;i++){
+            int diff =0;
+            for(int j=i+1;j<n;j++){
+                if((prices[j]-prices[i])>diff){
+                    diff = prices[j] - prices[i];
+                }
+                max_diff = max(max_diff, diff);
+            }
+        }
+        
+        return max_diff;
+    }
+    
+    
+    
+    
