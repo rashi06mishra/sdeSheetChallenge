@@ -1,0 +1,41 @@
+// O(n) using linkedlist concept and constant extra space(striver)
+//   [2,5,9,6, 3, 8, 9, 7, 1]
+//         _>1->5
+//    2->9        ->3
+//       <-7<-8<-6<
+int findDuplicate(vector<int>& nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }while(slow != fast);
+        
+        fast = nums[0];
+        while(slow!=fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        
+        return slow;
+    }
+    
+    
+    // O(N) time complexity and O(N) space complexity using map 
+    
+    int findDuplicate(vector<int>& nums) {
+        map<int,int> m ;
+        for(int i=0;i<nums.size();i++){
+            m[nums[i]]+=1;
+        }
+        
+        int ans;
+        for(auto it: m){
+            if(it.second >= 2){
+                ans = it.first;
+            }
+        }
+        
+        return ans;
+    }
