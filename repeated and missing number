@@ -1,0 +1,58 @@
+// approach 1 -> sort and find tc: O(N) sc: O(N)
+// approach 2 -> frequency array set to zerp(0) initially tc:O(N) sc:O(N)
+// approach 3 -> long long sum , sum^2 (x-y)(x+y) = sum^2 tc:O(N) sc : O(1) - look for total sum and sum^2
+
+// approach 4 -> XOR tc: O(N) sc:O(1)
+//find XOR of array elements , XOR  it with no.s 1-n (inclusive) if(result^A[i]) -> XOR for missing else for repeacting
+
+
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    
+    int xo = A[0];
+    int set_bit_no;
+    int x = 0;
+    int y = 0;
+    int n = A.size();
+    int i;
+    for(i=1;i<n;i++){
+        xo = xo ^ A[i];
+    }
+    for(int i=1;i<=n;i++){
+        xo = xo ^ i;
+    }
+    set_bit_no = xo & ~(xo-1);
+    for(int i=0;i<n;i++){
+        if(A[i] & set_bit_no){
+            x = x ^A[i];
+        }
+        else{
+            y = y ^ A[i];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if(i & set_bit_no){
+            x = x ^ i;
+        }
+        else{
+            y = y ^ i;
+        }
+    }
+    int x_count =0;
+    for(int i=0;i<n;i++){
+        if(x==A[i]){
+            x_count++;
+        }
+    }
+    vector <int> ans ;
+    if(x_count){
+        ans.push_back(x);
+        ans.push_back(y);
+    }
+    else{
+        ans.push_back(y);
+        ans.push_back(x);
+    }
+    
+    
+    return ans;
+}
