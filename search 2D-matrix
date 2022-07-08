@@ -1,0 +1,99 @@
+//APPROACH 4 -> using binary search and imaginary index tc: O(logn*m)     8ms
+int m = matrix.size();
+        int n = matrix[0].size();
+        int lo=0, hi= n*m -1;
+        while(lo<=hi){
+            int mid = (lo +(hi-lo)/2);
+            if(matrix[mid/n][mid%n] == target){
+                return true;
+            }
+            else if(matrix[mid/n][mid%n]<target){
+                lo = mid+1;
+            }
+            else{
+                hi = mid-1;
+            }
+        }
+       return false;
+
+
+//approach 3 -> tc: O(n+m) striver       0ms
+int m = matrix.size();
+        int n = matrix[0].size();
+        int i=0, j= n-1;
+        while(i<m && j>=0){
+            if(matrix[i][j] == target){
+                return true;
+            }
+            else if(matrix[i][j]>target){
+                j--;
+            }
+            else{
+                i++;
+            }
+        }
+       return false;
+    }
+
+//approach 1-> tc: O(N*M) sc:O(1)    7ms
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        //bool ans = false;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==target){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+//APPROACH 2 -> using binary search tc:O(m*logn) sc:O(m)      9ms
+bool b_search(vector<vector<int>> &matrix, int i, int l, int n, int target){
+        //bool ans = false;
+        int mid = (l+n)/2;
+        if(mid<0 || mid == n){
+            return false;
+        }
+        if(target == matrix[i][mid]){
+            return true;
+        }
+        else if(target < matrix[i][mid]){
+            return b_search(matrix, i, 0, mid,target);
+        }
+        else{
+            return b_search(matrix, i, mid+1, n, target);
+        }
+        
+        return false;
+    }
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        //bool ans = false;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<int> col1;
+        for(int i=0;i<m;i++){
+            col1.push_back(matrix[i][0]);
+        }
+        
+        for(int i=0;i<(m-1);i++){
+            if(target >= col1[i] && target < col1[i+1]){
+                return b_search(matrix, i, 0, n, target);
+            }
+        }
+        
+        return b_search(matrix, m-1, 0,n,target);
+        
+        // for(int i=0;i<m;i++){
+        //     for(int j=0;j<n;j++){
+        //         if(matrix[i][j]==target){
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+    }
