@@ -1,0 +1,67 @@
+//using mergeSort 
+
+int merge(vector<int> &nums, int low, int mid, int high){
+        int count =0;
+        int j = mid+1;
+        
+        for(int i=low;i<=mid;i++){
+            while(j<=high && nums[i] > 2LL*nums[j]){
+                j++;
+            }
+            count += (j-(mid+1));
+        }
+        
+        vector <int> temp;
+        int left = low, right = mid+1;
+        while(left<=mid && right<=high){
+            if(nums[left]<=nums[right]){
+                temp.push_back(nums[left++]);
+            }
+            else{
+                temp.push_back(nums[right++]);
+            }
+        }
+        while(left<=mid){
+            temp.push_back(nums[left++]);
+        }
+        while(right<=high){
+            temp.push_back(nums[right++]);
+        }
+        
+        for(int i=low;i<=high;i++){
+            nums[i] = temp[i-low];
+        }
+        
+        return count ;
+    }
+    int mergeSort(vector<int> &nums, int low, int high){
+        if(low>=high){
+            return 0;
+        }
+        int mid = low + (high - low)/2;
+        int inv = mergeSort(nums, low, mid);
+        inv += mergeSort(nums, mid+1, high);
+        inv += merge(nums, low, mid, high);
+        
+        return inv;
+    }
+    int reversePairs(vector<int>& nums) {
+        return mergeSort(nums, 0, nums.size()-1);
+    }
+    
+    
+    //brute force- TC:O(N^2) SC:O(1) ------gives tle
+    int reversePairs(vector<int>& nums) {
+        int cnt=0;
+        int n = nums.size() -1;
+        for(int i=n;i>=0;i--){
+            for(int j=i-1;j>=0;j--){
+                long long t = 2*(long long)nums[i];
+                if((long long)nums[j]>t){
+                    cnt++;
+                }
+            }
+        }
+        
+        return cnt;
+    }
