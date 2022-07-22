@@ -1,0 +1,33 @@
+// TC:O(N) in avg case as insertion and searching in average case is O(1) in worst case it is TC:O(N^2)
+// SC:O(N)
+vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans;
+        unordered_map<int,int> m;
+        for(int i=0;i<nums.size();i++){
+            if(m.find(target-nums[i]) !=m.end()){
+                ans.push_back(m[target-nums[i]]);
+                ans.push_back(i);
+            }
+            else{
+                m[nums[i]] = i;
+            }
+        }
+        
+        return ans;
+    }
+
+
+
+//TC: O(n^2)
+vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                if((nums[i]+nums[j]) == target){
+                    return {i,j};
+                }
+            }
+        }
+        
+        return {};
+    }
